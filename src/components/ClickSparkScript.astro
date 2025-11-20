@@ -1,0 +1,59 @@
+---
+const prefersReducedMotion = `window.matchMedia('(prefers-reduced-motion: reduce)')`;
+---
+
+<script type="module" is:inline>
+	const COLOR_POOL = ["#fcd34d", "#f87171", "#f472b6", "#60a5fa", "#a5b4fc"];
+	const PARTICLE_COUNT = 14;
+	const LIFE_SPAN = 650;
+
+	const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+	let disabled = prefersReducedMotion.matches;
+
+	const createSpark = (x, y) => {
+		const wrapper = document.createElement("span");
+		wrapper.className = "click-spark";
+		wrapper.style.left = `${x}px`;
+		wrapper.style.top = `${y}px`;
+
+		for (let i = 0; i < PARTICLE_COUNT; i++) {
+			const particle = document.createElement("span");
+			particle.className = "click-spark__particle";
+			const angle = Math.random() * 2 * Math.PI;
+			const velocity = Math.random() * 0.9 + 0.2;
+			const scale = Math.random() * 0.8 + 0.4;
+
+			particle.style.setProperty("--spark-x", Math.cos(angle) * velocity);
+			particle.style.setProperty("--spark-y", Math.sin(angle) * velocity);
+			particle.style.setProperty("--spark-scale", scale.toString());
+			particle.style.setProperty("--spark-color", COLOR_POOL[i % COLOR_POOL.length]);
+
+			wrapper.appendChild(particle);
+		}
+
+		document.body.appendChild(wrapper);
+		window.setTimeout(() => wrapper.remove(), LIFE_SPAN);
+	};
+
+	const handlePointerDown = (event) => {
+		if (disabled || event.target instanceof HTMLInputElement || event.button !== 0) {
+			return;
+		}
+		createSpark(event.clientX, event.clientY);
+	};
+
+	const onPreferenceChange = (event) => {
+		disabled = event.matches;
+	};
+
+	if (!disabled) {
+		window.addEventListener("pointerdown", handlePointerDown);
+	}
+	prefersReducedMotion.addEventListener("change", onPreferenceChange);
+
+	window.addEventListener("unload", () => {
+		window.removeEventListener("pointerdown", handlePointerDown);
+		prefersReducedMotion.removeEventListener("change", onPreferenceChange);
+	});
+</script>
+

@@ -8,19 +8,19 @@ import headerImageNight from "./assets/header_night.webp";
 export const SITE_LANGUAGE = "en";
 
 // 网站名称
-export const SITE_TITLE = 'Astro Koi';
+export const SITE_TITLE = 'Joy';
 
 // 网站的副标题
-export const SITE_DESCRIPTION = '又一个基于 Astro 的博客站点';
+export const SITE_DESCRIPTION = 'robot, music, ai';
 
 // 博主的昵称
-export const SITE_AUTHOR_NAME = "tcdw";
+export const SITE_AUTHOR_NAME = "Joy";
 
 // 博主的头像
 export const SITE_AUTHOR_AVATAR = authorAvatarImage;
 
 // 网站版权起始年份
-export const SITE_COPYRIGHT_YEAR_START = "2012";
+export const SITE_COPYRIGHT_YEAR_START = "2025";
 
 // 网站头部导航菜单
 export const SITE_MENU: { title: string, href: string, target: string }[] = [

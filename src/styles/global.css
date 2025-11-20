@@ -63,3 +63,38 @@ body {
         background-color: var(--color-accent-950);
     }
 }
+
+.click-spark {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.click-spark__particle {
+    position: absolute;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 9999px;
+    background: var(--spark-color, #fcd34d);
+    animation: click-spark-burst 650ms ease-out forwards;
+    transform-origin: center;
+}
+
+@keyframes click-spark-burst {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(calc(var(--spark-x) * 80px), calc(var(--spark-y) * 80px))
+        scale(calc(var(--spark-scale) * 0.6));
+        opacity: 0;
+    }
+}
